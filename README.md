@@ -13,4 +13,8 @@
 ![Authentication](https://github.com/BolajiOlajide/django-hackernews-graphql/blob/master/screenshots/auth.png?raw=true)
 
 ### Authorization
-![Mutation](https://github.com/BolajiOlajide/django-hackernews-graphql/blob/master/screenshots/authorization.png?raw=true)
+![Authorization](https://github.com/BolajiOlajide/django-hackernews-graphql/blob/master/screenshots/authorization.png?raw=true)
+
+### Relay
+![Relay](https://github.com/BolajiOlajide/django-hackernews-graphql/blob/master/screenshots/relay.png?raw=true)
+![Relay](https://github.com/BolajiOlajide/django-hackernews-graphql/blob/master/screenshots/relay-mutation.png?raw=true)
