@@ -1,6 +1,7 @@
 from graphene import ObjectType, Mutation, List, Int, String, Field
 from graphene_django import DjangoObjectType
 from graphql import GraphQLError
+from django.db.models import Q
 
 from .models import Link, Vote
 from hackernews.users.schema import UserType
@@ -17,10 +18,20 @@ class VoteType(DjangoObjectType):
 
 
 class Query(ObjectType):
-    links = List(LinkType)
+    # Add the search parameter inside our links field
+    links = List(LinkType, search=String())
     votes = List(VoteType)
 
-    def resolve_links(self, info, **kwargs):
+    def resolve_links(self, info, search=None, **kwargs):
+        # The value sent with the search parameter will be on the args variable
+        if search:
+            filter = (
+                Q(url__icontains=search) |
+                Q(description__icontains=search)
+            )
+
+            return Link.objects.filter(filter)
+
         return Link.objects.all()
 
     def resolve_votes(self, info, **kwargs):
