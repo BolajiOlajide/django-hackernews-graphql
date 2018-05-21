@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from graphene import Mutation, Field, String, ObjectType, List, AbstractType
+from graphene import Mutation, Field, String, ObjectType, List
 from graphene_django import DjangoObjectType
 
 
@@ -8,7 +8,7 @@ class UserType(DjangoObjectType):
         model = get_user_model()
 
 
-class Query(AbstractType):
+class Query(object):
     users = List(UserType)
     me = Field(UserType)
 
