@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from graphene import Mutation, Field, String, ObjectType, List
+from graphene import Mutation, Field, String, ObjectType, List, AbstractType
 from graphene_django import DjangoObjectType
 
 
@@ -8,11 +8,19 @@ class UserType(DjangoObjectType):
         model = get_user_model()
 
 
-class Query(ObjectType):
+class Query(AbstractType):
     users = List(UserType)
+    me = Field(UserType)
 
     def resolve_users(self, info):
         return get_user_model().objects.all()
+
+    def resolve_me(self, info):
+        user = info.context.user
+        if user.is_anonymous:
+            raise Exception('Not logged in!')
+
+        return user
 
 
 class CreateUser(Mutation):
